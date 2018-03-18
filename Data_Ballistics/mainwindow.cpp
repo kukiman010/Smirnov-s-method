@@ -18,8 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
     distance = new float[shooting];
     distance_2 = new float[shooting_2];
 
-    ui->pushButton_3->setEnabled(false);
-    ui->pushButton_4->setEnabled(false);
+//    ui->pushButton_3->setEnabled(false);
+//    ui->pushButton_4->setEnabled(false);
     show_label(false);
 }
 
@@ -43,10 +43,10 @@ void MainWindow::on_pushButton_clicked()
     num_clic++;
     ui->label_2->setText(QString::number(num_clic));
 
-    if(num_clic<2)
-        ui->pushButton_3->setEnabled(false);
-    else if(num_clic>=2)
-        ui->pushButton_3->setEnabled(true);
+//    if(num_clic<2)
+//        ui->pushButton_3->setEnabled(false);
+//    else if(num_clic>=2)
+//        ui->pushButton_3->setEnabled(true);
 }
 
 void MainWindow::on_pushButton_2_clicked()
@@ -64,15 +64,16 @@ void MainWindow::on_pushButton_2_clicked()
 
     ui->label_2->setText(QString::number(num_clic));
 
-    if(num_clic<2)
-        ui->pushButton_3->setEnabled(false);
-    //else
-    else if(num_clic>=3)
-        ui->pushButton_3->setEnabled(true);
+//    if(num_clic<2)
+//        ui->pushButton_3->setEnabled(false);
+//    //else
+//    else if(num_clic>=)
+//        ui->pushButton_3->setEnabled(true);
 }
 
 void MainWindow::on_pushButton_3_clicked()
 {
+    ui->statusBar->showMessage("");
     double sd[5][24] = { {0,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25},
                          {0.1,16.8,7.35,5.78,5.18,4.87,4.71,4.60,4.52,4.48,4.44,4.42,4.40,4.39,4.39,4.38,4.38,4.38,4.38,4.38,4.38,4.39,4.39,4.39},
                          {0.05,32.3,10.7,7.54,6.43,5.89,5.58,5.38,5.24,5.15,5.08,5.02,4.98,4.94,4.92,4.90,4.89,4.87,4.86,4.85 ,4.85,4.84,4.84,4.85},
@@ -88,7 +89,7 @@ void MainWindow::on_pushButton_3_clicked()
 
     if(DELET>shooting_2)
     {
-        QMessageBox::critical(this,"ОШИБКА: 0fx0001","Выбран элемент которого нет.");
+        QMessageBox::critical(this,"Ошибка! n-1","Отсчет \"n\" начинается с 0.\nВведите элемент n-1.");
         return;
     }
     cache= distance[DELET];
@@ -161,14 +162,18 @@ void MainWindow::on_pushButton_3_clicked()
             //break;
         }else if(Tn < sd[1][line])
         {
-            ui->label_11->setText("Не брак! (вышел не входя в линию)");
+            //ui->label_11->setText("Не брак! (вышел не входя в линию)");
+            ui->label_11->setText("Входит в генеральную совокупность");
+            ui->statusBar->showMessage("Не брак! (вышел не входя в линию)");
             return;
         }else if(Tn>sd[4][line])
         {
-            ui->label_11->setText("Точно брак! (слишком большой Tn)");
-            ui->pushButton_4->setEnabled(false);
+            //ui->label_11->setText("Точно брак! (слишком большой Tn)");
+            ui->label_11->setText("Не входит в генеральную совокупность");
+            ui->statusBar->showMessage("Точно брак! (слишком большой Tn)");
+            //ui->pushButton_4->setEnabled(false);
 
-            show_label(false);
+            //show_label(false);
             return;
         }
     }
@@ -191,14 +196,18 @@ void MainWindow::on_pushButton_3_clicked()
 
         if (malfunction > alpha)
         {
-            ui->label_11->setText("Брак!");
-            ui->pushButton_4->setEnabled(true);
+            //ui->label_11->setText("Брак!");
+            //ui->pushButton_4->setEnabled(true);
+            ui->label_11->setText("Не входит в генеральную совокупность");
+            ui->statusBar->showMessage("Брак!");
         }
         if (malfunction < alpha)
         {
-            ui->label_11->setText("Не брак!");
-            ui->pushButton_4->setEnabled(true);
-            show_label(true);
+            //ui->label_11->setText("Не брак!");
+            //ui->pushButton_4->setEnabled(true);
+            //show_label(true);
+            ui->label_11->setText("Входит в генеральную совокупность");
+            ui->statusBar->showMessage("Не брак!");
         }
 
 
@@ -220,6 +229,7 @@ void MainWindow::on_pushButton_5_clicked()
     sum_2 = 0;
 
     show_label(false);
+    ui->statusBar->showMessage("");
 }
 
 void MainWindow::on_pushButton_4_clicked()
