@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     distance = new float[shooting];
     distance_2 = new float[shooting_2];
 
-//    ui->pushButton_3->setEnabled(false);
+    ui->pushButton_3->setEnabled(false);
 //    ui->pushButton_4->setEnabled(false);
     show_label(false);
 }
@@ -37,16 +37,20 @@ void MainWindow::on_pushButton_clicked()
     distance[shooting]= ui->doubleSpinBox->value();
     num= distance[shooting];
     //distance[shooting]= ui->spinBox->value();
-    ui->listWidget->addItem(QString::number(distance[shooting]));
+    QString tt = QString::number(num_clic);
+    //tt =+ QString::number(distance[shooting]);
+    tt += " эл. : " + QString::number(distance[shooting]);
+   // tt ;
+    ui->listWidget->addItem(tt);
 
     shooting++;
     num_clic++;
     ui->label_2->setText(QString::number(num_clic));
 
-//    if(num_clic<2)
-//        ui->pushButton_3->setEnabled(false);
-//    else if(num_clic>=2)
-//        ui->pushButton_3->setEnabled(true);
+    if(num_clic<1)
+        ui->pushButton_3->setEnabled(false);
+    else if(num_clic>=1)
+        ui->pushButton_3->setEnabled(true);
 }
 
 void MainWindow::on_pushButton_2_clicked()
@@ -64,11 +68,11 @@ void MainWindow::on_pushButton_2_clicked()
 
     ui->label_2->setText(QString::number(num_clic));
 
-//    if(num_clic<2)
-//        ui->pushButton_3->setEnabled(false);
-//    //else
-//    else if(num_clic>=)
-//        ui->pushButton_3->setEnabled(true);
+    if(num_clic<1)
+        ui->pushButton_3->setEnabled(false);
+    //else
+    else if(num_clic>=1)
+        ui->pushButton_3->setEnabled(true);
 }
 
 void MainWindow::on_pushButton_3_clicked()
@@ -142,21 +146,6 @@ void MainWindow::on_pushButton_3_clicked()
         {
             B1 = sd[i][line];
             P2 = sd[i][0];
-
-//            if(Tn>sd[i][line])
-//            {
-//                B2 = sd[i + 1][line];
-//                P1 = sd[i + 1][0];
-//            }
-//            else if(Tn<sd[i][line])
-//            {
-//                if(i>1)
-//                {
-//                B2 = sd[i - 1][line];
-//                P1 = sd[i - 1][0];
-//                }else
-//                    break;
-//            }
             B2 = sd[i + 1][line];
             P1 = sd[i + 1][0];
             //break;
@@ -217,11 +206,11 @@ void MainWindow::on_pushButton_3_clicked()
 void MainWindow::on_pushButton_5_clicked()
 {
     ui->listWidget->clear();
-    ui->label_3->clear();
-    ui->label_7->clear();
-    ui->label_9->clear();
-    ui->label_2->clear();
-    ui->label_11->clear();
+    ui->label_3->setText("0");
+    ui->label_7->setText("0");
+    ui->label_9->setText("0");
+    ui->label_2->setText("0");
+    ui->label_11->setText("-");
 
     num_clic = 0;
     shooting = 0;
@@ -229,6 +218,7 @@ void MainWindow::on_pushButton_5_clicked()
     sum_2 = 0;
 
     show_label(false);
+    ui->pushButton_3->setEnabled(false);
     ui->statusBar->showMessage("");
 }
 
